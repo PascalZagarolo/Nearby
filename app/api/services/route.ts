@@ -109,7 +109,7 @@ export async function POST(request: Request) {
     services.push(newService);
     
     return NextResponse.json(newService, { status: 201 });
-  } catch (_) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to create service' }, { status: 400 });
   }
 } 

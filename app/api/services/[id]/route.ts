@@ -82,7 +82,7 @@ export async function PUT(
     services[serviceIndex] = updatedService;
     
     return NextResponse.json(updatedService);
-  } catch (_) {
+  } catch (_error) {
     return NextResponse.json(
       { error: 'Failed to update service' },
       { status: 400 }

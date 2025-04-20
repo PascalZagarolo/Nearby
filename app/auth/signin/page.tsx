@@ -1,12 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiFacebook } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
+import { signIn, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Toaster, toast } from 'react-hot-toast';
 
-export default function SignIn() {
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { HoveringBubbleProvider } from '@/components/bubbles/HoveringBubbleProvider';
+import FooterHome from '@/components/Footer';
+import Navbar from '@/components/Navbar';
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1, {
+    message: 'Password is required.',
+  }),
+});
+
+const SignInPage = () => {
+  const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +57,7 @@ export default function SignIn() {
         router.push('/');
         setIsLoading(false);
       }, 1500);
-    } catch (_) {
+    } catch (_error) {
       setError('Ungültige E-Mail oder Passwort. Bitte versuche es erneut.');
       setIsLoading(false);
     }
@@ -190,4 +218,6 @@ export default function SignIn() {
       </div>
     </div>
   );
-} 
+}
+
+export default SignInPage; 
