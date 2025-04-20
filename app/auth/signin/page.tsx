@@ -8,23 +8,15 @@ import { FcGoogle } from 'react-icons/fc';
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Toaster, toast } from 'react-hot-toast';
 
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { HoveringBubbleProvider } from '@/components/bubbles/HoveringBubbleProvider';
-import FooterHome from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+import { z } from 'zod';
+
+
+
+
+
+
+
 
 const formSchema = z.object({
   email: z.string().email(),
