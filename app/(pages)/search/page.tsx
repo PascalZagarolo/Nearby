@@ -24,6 +24,7 @@ const allServices = [
       name: 'Alexander Schmidt',
       avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '2',
@@ -40,6 +41,7 @@ const allServices = [
       name: 'Emma Wagner',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '3',
@@ -56,6 +58,7 @@ const allServices = [
       name: 'Markus Becker',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '4',
@@ -72,6 +75,7 @@ const allServices = [
       name: 'Sarah Müller',
       avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1961&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '5',
@@ -88,6 +92,7 @@ const allServices = [
       name: 'David Klein',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '6',
@@ -104,6 +109,7 @@ const allServices = [
       name: 'Lisa Park',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1888&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '7',
@@ -120,6 +126,7 @@ const allServices = [
       name: 'Robert Taylor',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
     },
+    userType: 'dienstleister',
   },
   {
     id: '8',
@@ -136,6 +143,42 @@ const allServices = [
       name: 'Jennifer Lopez',
       avatar: 'https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1889&q=80',
     },
+    userType: 'dienstleister',
+  },
+  // Arbeitgeber
+  {
+    id: '9',
+    title: 'Suche Elektriker für Hausinstallation',
+    description: 'Für eine komplette Neuverkabelung unseres Hauses suchen wir einen erfahrenen Elektriker',
+    price: 70,
+    rating: 4.5,
+    reviews: 32,
+    location: 'München, BY',
+    category: CATEGORIES[0].id,
+    image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    seller: {
+      id: 'employer1',
+      name: 'Maximilian Schreiber',
+      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
+    },
+    userType: 'arbeitgeber',
+  },
+  {
+    id: '10',
+    title: 'Gärtner für regelmäßige Gartenpflege gesucht',
+    description: 'Für unseren großen Garten suchen wir einen zuverlässigen Gärtner für wöchentliche Pflege',
+    price: 45,
+    rating: 4.7,
+    reviews: 18,
+    location: 'Hamburg, HH',
+    category: CATEGORIES[3].id,
+    image: 'https://images.unsplash.com/photo-1583900985737-6d0495555783?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+    seller: {
+      id: 'employer2',
+      name: 'Claudia Müller',
+      avatar: 'https://images.unsplash.com/photo-1599566219227-2efe0c9b7f5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80',
+    },
+    userType: 'arbeitgeber',
   },
 ];
 
@@ -147,10 +190,12 @@ export default function Search() {
   const queryParam = searchParams.get('q');
   const locationParam = searchParams.get('location');
   const categoryParam = searchParams.get('category');
+  const typeParam = searchParams.get('type') || 'dienstleister';
   
   const [searchTerm, setSearchTerm] = useState(queryParam || '');
   const [location, setLocation] = useState(locationParam || '');
   const [category, setCategory] = useState(categoryParam || 'Alle Kategorien');
+  const [userType, setUserType] = useState(typeParam);
   const [priceRange, setPriceRange] = useState([0, 200]);
   const [minRating, setMinRating] = useState(0);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -159,6 +204,9 @@ export default function Search() {
   // Filter services based on search criteria
   useEffect(() => {
     let results = [...allServices];
+    
+    // Filter by user type
+    results = results.filter(service => service.userType === userType);
     
     // Filter by search term
     if (searchTerm) {
@@ -192,7 +240,7 @@ export default function Search() {
     results = results.filter(service => service.rating >= minRating);
     
     setFilteredServices(results);
-  }, [searchTerm, location, category, priceRange, minRating]);
+  }, [searchTerm, location, category, priceRange, minRating, userType]);
   
   // Initialize from URL params
   useEffect(() => {
@@ -206,14 +254,45 @@ export default function Search() {
         setCategory(categoryParam);
       }
     }
-  }, [queryParam, locationParam, categoryParam]);
+    if (typeParam) setUserType(typeParam);
+  }, [queryParam, locationParam, categoryParam, typeParam]);
   
   return (
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Search Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Services finden</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {userType === 'dienstleister' ? 'Dienstleister finden' : 'Arbeitgeber finden'}
+          </h1>
+          
+          {/* User Type Switch */}
+          <div className="mb-6">
+            <div className="inline-flex rounded-lg shadow-sm bg-gray-100 p-1 w-full max-w-xs">
+              <button
+                type="button"
+                onClick={() => setUserType('dienstleister')}
+                className={`w-1/2 py-2.5 text-sm font-medium rounded-md transition-all ${
+                  userType === 'dienstleister'
+                    ? 'bg-rose-600 text-white font-semibold'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Dienstleister
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType('arbeitgeber')}
+                className={`w-1/2 py-2.5 text-sm font-medium rounded-md transition-all ${
+                  userType === 'arbeitgeber'
+                    ? 'bg-rose-600 text-white font-semibold'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Arbeitgeber
+              </button>
+            </div>
+          </div>
           
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -222,7 +301,7 @@ export default function Search() {
               </div>
               <input
                 type="text"
-                placeholder="Welchen Service suchst du?"
+                placeholder={userType === 'dienstleister' ? "Welchen Service suchst du?" : "Welche Arbeit suchst du?"}
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 text-gray-600 rounded-md leading-5 bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -374,7 +453,11 @@ export default function Search() {
             {filteredServices.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredServices.map((service) => (
-                  <ServiceCard key={service.id} {...service} />
+                  <ServiceCard 
+                    key={service.id} 
+                    {...service} 
+                    userType={service.userType as 'dienstleister' | 'arbeitgeber'} 
+                  />
                 ))}
               </div>
             ) : (

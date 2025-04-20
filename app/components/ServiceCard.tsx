@@ -18,6 +18,7 @@ interface ServiceCardProps {
     name: string;
     avatar: string;
   };
+  userType?: 'dienstleister' | 'arbeitgeber';
 }
 
 const ServiceCard = ({
@@ -31,6 +32,7 @@ const ServiceCard = ({
   category,
   image,
   seller,
+  userType = 'dienstleister',
 }: ServiceCardProps) => {
   // Find the category object to get its icon
   const categoryObj = CATEGORIES.find(cat => cat.id === category || cat.name === category);
@@ -55,6 +57,21 @@ const ServiceCard = ({
           >
             <FiHeart className="h-5 w-5 text-gray-600 hover:text-red-500" />
           </button>
+          
+          {/* User Type Badge - positioned at top left */}
+          <div className="absolute top-2 left-2">
+            <span 
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                userType === 'dienstleister' 
+                  ? 'bg-blue-100 text-blue-800' 
+                  : 'bg-green-100 text-green-800'
+              }`}
+            >
+              {userType === 'dienstleister' ? 'Dienstleister' : 'Arbeitgeber'}
+            </span>
+          </div>
+          
+          {/* Category Badge - stays at bottom */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
             <span className="inline-flex items-center gap-1 px-2 py-1 bg-rose-500 text-white text-xs font-semibold rounded-md">
               {categoryObj?.icon && <span className="text-white">{categoryObj.icon}</span>}
@@ -103,7 +120,7 @@ const ServiceCard = ({
         </div>
         
         <div className="flex items-center justify-between pt-3 border-t border-gray-200 mt-auto">
-          <p className="text-xs text-gray-500">Ab</p>
+          <p className="text-xs text-gray-500">{userType === 'dienstleister' ? 'Ab' : 'Budget'}</p>
           <p className="text-xl font-bold text-gray-900">{price}€</p>
         </div>
       </div>

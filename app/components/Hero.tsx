@@ -8,6 +8,7 @@ import CATEGORIES from '../constants/categories';
 const Hero = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
+  const [userType, setUserType] = useState('dienstleister'); // Default to service provider
   const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -21,6 +22,9 @@ const Hero = () => {
     if (location) {
       params.append('location', location);
     }
+    
+    // Add the user type to the search params
+    params.append('type', userType);
 
     router.push(`/search?${params.toString()}`);
   };
@@ -37,13 +41,41 @@ const Hero = () => {
       ></div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 py-24 md:py-32 flex flex-col items-center justify-center text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-shadow-lg">
           Finde Lokale Talente & Services
         </h1>
-        <p className="text-xl text-white mb-8 max-w-3xl mx-auto">
+        <p className="text-xl text-white mb-8 max-w-3xl mx-auto text-shadow-lg">
           Vernetze dich mit lokalen Talenten und Services für deine Projekte und Bedürfnisse,
           oder biete deine Services direkt an.
         </p>
+
+        {/* User Type Switch */}
+        <div className="w-full max-w-3xl mx-auto mb-4">
+          <div className="inline-flex rounded-xl shadow-sm bg-white p-1 mb-6 w-full max-w-xs">
+            <button
+              type="button"
+              onClick={() => setUserType('dienstleister')}
+              className={`w-1/2 py-2.5 text-sm font-medium rounded-md transition-all ${
+                userType === 'dienstleister'
+                  ? 'bg-rose-600 text-white font-semibold'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Dienstleister
+            </button>
+            <button
+              type="button"
+              onClick={() => setUserType('arbeitgeber')}
+              className={`w-1/2 py-2.5 text-sm font-medium rounded-md transition-all ${
+                userType === 'arbeitgeber'
+                  ? 'bg-rose-600 text-white font-semibold'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Arbeitgeber
+            </button>
+          </div>
+        </div>
 
         {/* Search Box */}
         <form
@@ -56,7 +88,7 @@ const Hero = () => {
                 <FiSearch className="h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Wonach suchst du?"
+                  placeholder={userType === 'dienstleister' ? "Welchen Service suchst du?" : "Welche Arbeit suchst du?"}
                   className="flex-1 px-3 py-2 focus:outline-none text-gray-600"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,7 +125,7 @@ const Hero = () => {
             {CATEGORIES.map((category) => (
               <a
                 key={category.id}
-                href={`/search?category=${encodeURIComponent(category.slug)}`}
+                href={`/search?category=${encodeURIComponent(category.slug)}&type=${userType}`}
                 className="w-32 bg-white text-gray-800 rounded-xl shadow-lg p-4 flex flex-col items-center justify-center transform hover:scale-105 hover:shadow-xl transition-all duration-300"
               >
                 <div className="text-2xl mb-3 text-red-600">{category.icon}</div>
