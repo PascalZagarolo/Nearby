@@ -39,7 +39,7 @@ export default function SignUp() {
         router.push('/');
         setIsLoading(false);
       }, 1500);
-    } catch (e : any) {
+    } catch (e) {
       console.log(e);
       setError('Etwas ist schiefgelaufen. Bitte versuche es erneut.');
       setIsLoading(false);
