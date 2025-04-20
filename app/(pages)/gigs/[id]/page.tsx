@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiStar, FiMapPin, FiShoppingCart, FiMessageSquare, FiHeart, FiCheck, FiX } from 'react-icons/fi';
+import { FiStar, FiMapPin, FiShoppingCart, FiMessageSquare, FiHeart, FiCheck } from 'react-icons/fi';
 
 // Mock data (in einer echten App würde dies von einer API abgerufen werden)
 const service = {
@@ -115,7 +115,7 @@ const service = {
   ],
 };
 
-export default function ServiceDetail({ params }: { params: { id: string } }) {
+export default function ServiceDetail() {
   const [selectedPackage, setSelectedPackage] = useState(service.packages[1]); // Standard-Paket als Standard
   const [activeImage, setActiveImage] = useState(service.image);
   

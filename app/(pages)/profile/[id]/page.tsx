@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
-import { FiStar, FiMapPin, FiCalendar, FiClock, FiMessageSquare, FiAlertCircle } from 'react-icons/fi';
+import { FiStar, FiMapPin, FiCalendar, FiClock, FiMessageSquare } from 'react-icons/fi';
 import ServiceCard from '../../../components/ServiceCard';
 
 // Mock-Daten für das Benutzerprofil
@@ -122,7 +121,7 @@ const userProfile = {
   ],
 };
 
-export default function ProfilePage({ params }: { params: { id: string } }) {
+export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('services');
   
   return (

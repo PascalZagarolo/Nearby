@@ -71,7 +71,7 @@ const Testimonials = () => {
                 </div>
                 
                 <p className="text-gray-600 italic mb-4">
-                  „{testimonial.content}"
+                  &ldquo;{testimonial.content}&rdquo;
                 </p>
                 
                 <div className="border-t border-gray-100 pt-4">

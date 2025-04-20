@@ -71,12 +71,6 @@ const featuredServices = [
   },
 ];
 
-// Helper function to get category name by id
-const getCategoryName = (categoryId: string) => {
-  const category = CATEGORIES.find(cat => cat.id === categoryId);
-  return category ? category.name : categoryId;
-};
-
 const FeaturedServices = () => {
   return (
     <section className="py-16">

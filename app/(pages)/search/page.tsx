@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { FiSearch, FiMapPin, FiFilter, FiStar } from 'react-icons/fi';
+import { FiSearch, FiMapPin, FiFilter } from 'react-icons/fi';
 import ServiceCard from '../../components/ServiceCard';
 import CATEGORIES from '../../constants/categories';
 import { FaEuroSign } from 'react-icons/fa6';

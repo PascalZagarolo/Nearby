@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
 import { FaHouseFire } from 'react-icons/fa6';
 import { BsArrowRight } from 'react-icons/bs';

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock, FiEye, FiEyeOff, FiFacebook, FiTwitter, FiGithub } from 'react-icons/fi';
+import { FiMail, FiLock, FiEye, FiEyeOff, FiFacebook } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function SignIn() {
@@ -29,7 +29,7 @@ export default function SignIn() {
         router.push('/');
         setIsLoading(false);
       }, 1500);
-    } catch (err) {
+    } catch (_) {
       setError('Ungültige E-Mail oder Passwort. Bitte versuche es erneut.');
       setIsLoading(false);
     }
