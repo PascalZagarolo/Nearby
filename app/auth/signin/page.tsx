@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiFacebook } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
-import { signIn, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+
+
+
 
 import { z } from 'zod';
 
@@ -26,7 +26,7 @@ const formSchema = z.object({
 });
 
 const SignInPage = () => {
-  const { data: session } = useSession();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -50,6 +50,7 @@ const SignInPage = () => {
         setIsLoading(false);
       }, 1500);
     } catch (_error) {
+      console.log(_error);
       setError('Ungültige E-Mail oder Passwort. Bitte versuche es erneut.');
       setIsLoading(false);
     }
