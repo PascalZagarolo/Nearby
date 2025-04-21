@@ -313,6 +313,76 @@ const ExplorePage = () => {
           </div>
         </section>
 
+        {/* Popular Employers Section */}
+        <section className="mb-20">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900">Gefragte Berufe</h2>
+            <Link href="/employers" className="text-rose-600 hover:text-rose-700 font-semibold">
+              Alle anzeigen
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Bau & Renovierung',
+                jobCount: 328,
+                image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+                sectors: ['Malerarbeiten', 'Trockenbau', 'Fliesenleger']
+              },
+              {
+                name: 'Gastronomie & Hotellerie',
+                jobCount: 256,
+                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+                sectors: ['Köche', 'Servicekräfte', 'Barkeeper']
+              },
+              {
+                name: 'E-Commerce & Versand',
+                jobCount: 184,
+                image: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+                sectors: ['Lagermitarbeiter', 'Versandhelfer', 'Fahrer']
+              }
+            ].map((employer, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-100"
+              >
+                <div className="relative h-40">
+                  <Image src={employer.image} alt={employer.name} layout="fill" objectFit="cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div>
+                      <h3 className="text-xl font-bold text-white">{employer.name}</h3>
+                      <p className="text-white/80">{employer.jobCount} offene Stellen</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {employer.sectors.map((sector, i) => (
+                      <span 
+                        key={i} 
+                        className="inline-block bg-rose-100 text-rose-700 text-sm px-3 py-1 rounded-full"
+                      >
+                        {sector}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-gray-600 text-sm">Aktuelle Angebote</p>
+                    <Link href={`/employers/${employer.name.toLowerCase().replace(/\s+/g, '-')}`} className="text-rose-600 font-medium hover:text-rose-700 transition-colors">
+                      Alle anzeigen →
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* How It Works Section */}
         <section className="mb-16 bg-gradient-to-r from-rose-50 to-rose-100 rounded-2xl p-8 md:p-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Wie es funktioniert</h2>
