@@ -17,19 +17,19 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-rose-500">
-                <FiTwitter className="h-5 w-5" />
+                <FiTwitter className="h-4 w-4" />
               </a>
               <a href="#" className="text-gray-400 hover:text-rose-500">
-                <FiFacebook className="h-5 w-5" />
+                <FiFacebook className="h-4 w-4" />
               </a>
               <a href="#" className="text-gray-400 hover:text-rose-500">
-                <FiInstagram className="h-5 w-5" />
+                <FiInstagram className="h-4 w-4" />
               </a>
               <a href="#" className="text-gray-400 hover:text-rose-500">
-                <FiLinkedin className="h-5 w-5" />
+                <FiLinkedin className="h-4 w-4" />
               </a>
               <a href="#" className="text-gray-400 hover:text-rose-500">
-                <FiGithub className="h-5 w-5" />
+                <FiGithub className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -74,7 +74,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Über uns</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-rose-300">
+                <Link href="/about-us" className="text-gray-300 hover:text-rose-300">
                   Über Nearby
                 </Link>
               </li>
