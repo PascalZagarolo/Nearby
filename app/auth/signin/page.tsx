@@ -82,7 +82,7 @@ export default function SignIn() {
       router.push('/');
     } catch (e) {
       console.error(e);
-      setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      setError(e instanceof Error ? e.message : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
       setIsLoading(false);
     }
@@ -125,7 +125,7 @@ export default function SignIn() {
       router.push('/');
     } catch (e) {
       console.error(e);
-      setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      setError(e instanceof Error ? e.message : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
       setIsLoading(false);
     }
