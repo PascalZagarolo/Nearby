@@ -5,6 +5,8 @@ import { relations } from 'drizzle-orm';
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin', 'service_provider']);
 export const orderStatusEnum = pgEnum('order_status', ['pending', 'in_progress', 'completed', 'canceled', 'revision']);
 export const serviceStatusEnum = pgEnum('service_status', ['draft', 'active', 'inactive', 'rejected']);
+export const serviceRequestStatusEnum = pgEnum('service_request_status', ['open', 'in_progress', 'fulfilled', 'canceled']);
+export const verificationTypeEnum = pgEnum('verification_type', ['email', 'password_reset']);
 
 // Users table
 export const users = pgTable('users', {
@@ -15,19 +17,49 @@ export const users = pgTable('users', {
   role: userRoleEnum('role').default('user').notNull(),
   avatar: text('avatar'),
   bio: text('bio'),
+  emailVerified: boolean('email_verified').default(false).notNull(),
+  twoFactorEnabled: boolean('two_factor_enabled').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// User relations
-export const usersRelations = relations(users, ({ one, many }) => ({
-  serviceProvider: one(serviceProviders, {
-    fields: [users.id],
-    references: [serviceProviders.userId],
-  }),
-  reviews: many(reviews),
-  orders: many(orders, { relationName: 'buyer' }),
-}));
+// Session table
+export const sessions = pgTable('sessions', {
+  id: text('id').primaryKey(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expiresAt: timestamp('expires_at', {
+    withTimezone: true,
+    mode: 'date'
+  }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  userAgent: text('user_agent'),
+  ipAddress: text('ip_address'),
+  data: json('data'),
+});
+
+// Email Verification table
+export const emailVerifications = pgTable('email_verifications', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  token: text('token').notNull(),
+  type: verificationTypeEnum('type').default('email').notNull(),
+  expires: timestamp('expires').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Two Factor Authentication table
+export const twoFactorAuth = pgTable('two_factor_auth', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  token: text('token').notNull(),
+  valid: boolean('valid').default(true).notNull(),
+  expires: timestamp('expires').notNull(),
+  ip: text('ip'),
+  userAgent: text('user_agent'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
 
 // Service Providers table
 export const serviceProviders = pgTable('service_providers', {
@@ -46,14 +78,15 @@ export const serviceProviders = pgTable('service_providers', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Service Provider relations
-export const serviceProvidersRelations = relations(serviceProviders, ({ one, many }) => ({
-  user: one(users, {
-    fields: [serviceProviders.userId],
-    references: [users.id],
-  }),
-  services: many(services),
-}));
+// Service Seekers table
+export const serviceSeekers = pgTable('service_seekers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id).notNull().unique(),
+  preferences: json('preferences').default({}),
+  location: text('location'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
 
 // Categories table
 export const categories = pgTable('categories', {
@@ -65,11 +98,6 @@ export const categories = pgTable('categories', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
-
-// Categories relations
-export const categoriesRelations = relations(categories, ({ many }) => ({
-  services: many(services),
-}));
 
 // Services table
 export const services = pgTable('services', {
@@ -90,20 +118,6 @@ export const services = pgTable('services', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Services relations
-export const servicesRelations = relations(services, ({ one, many }) => ({
-  provider: one(serviceProviders, {
-    fields: [services.providerId],
-    references: [serviceProviders.id],
-  }),
-  category: one(categories, {
-    fields: [services.categoryId],
-    references: [categories.id],
-  }),
-  reviews: many(reviews),
-  orders: many(orders),
-}));
-
 // Orders table
 export const orders = pgTable('orders', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -121,19 +135,6 @@ export const orders = pgTable('orders', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Orders relations
-export const ordersRelations = relations(orders, ({ one }) => ({
-  buyer: one(users, {
-    fields: [orders.buyerId],
-    references: [users.id],
-    relationName: 'buyer',
-  }),
-  service: one(services, {
-    fields: [orders.serviceId],
-    references: [services.id],
-  }),
-}));
-
 // Reviews table
 export const reviews = pgTable('reviews', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -145,18 +146,6 @@ export const reviews = pgTable('reviews', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Reviews relations
-export const reviewsRelations = relations(reviews, ({ one }) => ({
-  user: one(users, {
-    fields: [reviews.userId],
-    references: [users.id],
-  }),
-  service: one(services, {
-    fields: [reviews.serviceId],
-    references: [services.id],
-  }),
-}));
-
 // Messages table
 export const messages = pgTable('messages', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -166,18 +155,6 @@ export const messages = pgTable('messages', {
   read: boolean('read').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
-
-// Messages relations
-export const messagesRelations = relations(messages, ({ one }) => ({
-  sender: one(users, {
-    fields: [messages.senderId],
-    references: [users.id],
-  }),
-  receiver: one(users, {
-    fields: [messages.receiverId],
-    references: [users.id],
-  }),
-}));
 
 // Payments table
 export const payments = pgTable('payments', {
@@ -191,10 +168,167 @@ export const payments = pgTable('payments', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// Payments relations
+// Service Requests table
+export const serviceRequests = pgTable('service_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  seekerId: uuid('seeker_id').references(() => serviceSeekers.id).notNull(),
+  categoryId: uuid('category_id').references(() => categories.id).notNull(),
+  budget: numeric('budget'),
+  attachments: json('attachments').default([]),
+  requirements: text('requirements'),
+  deadline: date('deadline'),
+  status: serviceRequestStatusEnum('status').default('open').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Service Request Proposals table
+export const serviceRequestProposals = pgTable('service_request_proposals', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  requestId: uuid('request_id').references(() => serviceRequests.id).notNull(),
+  providerId: uuid('provider_id').references(() => serviceProviders.id).notNull(),
+  message: text('message').notNull(),
+  price: numeric('price').notNull(),
+  deliveryTime: integer('delivery_time').notNull(), // in days
+  status: varchar('status', { length: 50 }).default('pending').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Relations
+export const usersRelations = relations(users, ({ one, many }) => ({
+  serviceProvider: one(serviceProviders, {
+    fields: [users.id],
+    references: [serviceProviders.userId],
+  }),
+  serviceSeeker: one(serviceSeekers, {
+    fields: [users.id],
+    references: [serviceSeekers.userId],
+  }),
+  emailVerifications: many(emailVerifications),
+  twoFactorAuth: many(twoFactorAuth),
+  sessions: many(sessions),
+  reviews: many(reviews),
+  orders: many(orders, { relationName: 'buyer' }),
+}));
+
+export const serviceProvidersRelations = relations(serviceProviders, ({ one, many }) => ({
+  user: one(users, {
+    fields: [serviceProviders.userId],
+    references: [users.id],
+  }),
+  services: many(services),
+}));
+
+export const serviceSeekersRelations = relations(serviceSeekers, ({ one, many }) => ({
+  user: one(users, {
+    fields: [serviceSeekers.userId],
+    references: [users.id],
+  }),
+  serviceRequests: many(serviceRequests),
+}));
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  services: many(services),
+  serviceRequests: many(serviceRequests),
+}));
+
+export const servicesRelations = relations(services, ({ one, many }) => ({
+  provider: one(serviceProviders, {
+    fields: [services.providerId],
+    references: [serviceProviders.id],
+  }),
+  category: one(categories, {
+    fields: [services.categoryId],
+    references: [categories.id],
+  }),
+  reviews: many(reviews),
+  orders: many(orders),
+}));
+
+export const ordersRelations = relations(orders, ({ one }) => ({
+  buyer: one(users, {
+    fields: [orders.buyerId],
+    references: [users.id],
+    relationName: 'buyer',
+  }),
+  service: one(services, {
+    fields: [orders.serviceId],
+    references: [services.id],
+  }),
+}));
+
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  user: one(users, {
+    fields: [reviews.userId],
+    references: [users.id],
+  }),
+  service: one(services, {
+    fields: [reviews.serviceId],
+    references: [services.id],
+  }),
+}));
+
+export const messagesRelations = relations(messages, ({ one }) => ({
+  sender: one(users, {
+    fields: [messages.senderId],
+    references: [users.id],
+  }),
+  receiver: one(users, {
+    fields: [messages.receiverId],
+    references: [users.id],
+  }),
+}));
+
 export const paymentsRelations = relations(payments, ({ one }) => ({
   order: one(orders, {
     fields: [payments.orderId],
     references: [orders.id],
   }),
-})); 
+}));
+
+export const serviceRequestsRelations = relations(serviceRequests, ({ one, many }) => ({
+  seeker: one(serviceSeekers, {
+    fields: [serviceRequests.seekerId],
+    references: [serviceSeekers.id],
+  }),
+  category: one(categories, {
+    fields: [serviceRequests.categoryId],
+    references: [categories.id],
+  }),
+  proposals: many(serviceRequestProposals),
+}));
+
+export const serviceRequestProposalsRelations = relations(serviceRequestProposals, ({ one }) => ({
+  request: one(serviceRequests, {
+    fields: [serviceRequestProposals.requestId],
+    references: [serviceRequests.id],
+  }),
+  provider: one(serviceProviders, {
+    fields: [serviceRequestProposals.providerId],
+    references: [serviceProviders.id],
+  }),
+}));
+
+export const emailVerificationsRelations = relations(emailVerifications, ({ one }) => ({
+  user: one(users, {
+    fields: [emailVerifications.userId],
+    references: [users.id],
+  }),
+}));
+
+export const twoFactorAuthRelations = relations(twoFactorAuth, ({ one }) => ({
+  user: one(users, {
+    fields: [twoFactorAuth.userId],
+    references: [users.id],
+  }),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));

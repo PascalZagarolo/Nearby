@@ -32,15 +32,15 @@ const loadEnv = () => {
 };
 
 const env = loadEnv();
-const databaseUrl = process.env.DATABASE_URL || env.DATABASE_URL;
+const databaseUrl = process.env.DATABASE_URL!;
 
 console.log('DATABASE_URL status:', databaseUrl ? 'found' : 'not found');
 
 export default defineConfig({
   out: './drizzle',
-  schema: './src/db/schema.ts',
+  schema: './db/schema.ts',
   dialect: 'postgresql',
   dbCredentials: {
-    url: databaseUrl || 'postgres://placeholder:placeholder@localhost:5432/placeholder',
+    url: databaseUrl
   },
 }); 
