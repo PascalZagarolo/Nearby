@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock, FiEye, FiEyeOff, FiShield, FiCheckCircle, FiClock, FiGlobe, FiUsers, FiStar } from 'react-icons/fi';
+import { FiMail, FiLock, FiEye, FiEyeOff, FiShield, FiCheckCircle, FiClock, FiGlobe, } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaApple } from 'react-icons/fa';
 import Cookies from 'js-cookie';
-import Image from 'next/image';
+
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -80,7 +80,7 @@ export default function SignIn() {
       
       // Navigate to home page after successful login
       router.push('/');
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
       setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
@@ -123,7 +123,7 @@ export default function SignIn() {
       
       // Navigate to home page after successful 2FA
       router.push('/');
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
       setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
@@ -477,7 +477,7 @@ export default function SignIn() {
                       </div>
                     </div>
                     <div>
-                      <p className="text-gray-800 font-medium italic">"{testimonial.quote}"</p>
+                      <p className="text-gray-800 font-medium italic">{`"`}{testimonial.quote}{`"`}</p>
                       <div className="mt-2 flex items-center">
                         <p className="text-sm font-bold text-gray-900">{testimonial.name}</p>
                         <span className="mx-1 text-gray-400">•</span>

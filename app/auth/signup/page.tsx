@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock, FiEye, FiEyeOff, FiUser, FiCheckCircle, FiShield, FiDollarSign, FiGlobe, FiClock, FiStar, FiAlertCircle, FiCheck } from 'react-icons/fi';
+import { FiMail, FiLock, FiEye, FiEyeOff, FiUser, FiCheckCircle, FiShield, FiDollarSign, FiGlobe, FiClock, FiStar, FiAlertCircle } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
+
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -63,9 +64,9 @@ export default function SignUp() {
       // setTimeout(() => {
       //   router.push('/auth/signin');
       // }, 5000);
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
-      setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      setError(e instanceof Error ? e.message : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
       setIsLoading(false);
     }
@@ -309,7 +310,7 @@ export default function SignUp() {
               {role === 'service_provider' ? (
                 <div className="flex flex-col">
                   <p className="text-gray-700 font-medium italic">
-                    "Nach nur 3 Monaten auf Nearby konnte ich meine Auftragslage um 70% steigern und meinen Kundenstamm deutlich erweitern."
+                  {`"`}Nach nur 3 Monaten auf Nearby konnte ich meine Auftragslage um 70% steigern und meinen Kundenstamm deutlich erweitern.{`"`}
                   </p>
                   <div className="mt-3 flex items-center">
                     <div className="bg-rose-100 rounded-full h-8 w-8 flex items-center justify-center mr-2 text-rose-600 font-bold">MK</div> 

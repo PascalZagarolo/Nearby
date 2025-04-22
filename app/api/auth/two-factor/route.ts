@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
-import { sessions, twoFactorAuth, users } from '@/db/schema';
+import { twoFactorAuth, users } from '@/db/schema';
 import { randomUUID } from 'crypto';
-import { randomBytes } from 'crypto';
+
 import { eq } from 'drizzle-orm';
 
 // Define the request types
@@ -15,7 +15,7 @@ interface VerifyTokenRequest {
 }
 
 // Helper function to generate a token
-function generateToken(length = 6): string {
+function generateToken(): string {
   // Generate a random numeric token (for simplicity)
   // In production, you might want to use a proper TOTP library
   return Math.floor(100000 + Math.random() * 900000).toString();

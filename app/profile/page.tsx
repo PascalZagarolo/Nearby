@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { 
   FiEdit2, FiUser, FiMail, FiBriefcase, FiMapPin, FiSave, 
-  FiLoader, FiCheck, FiUpload, FiCamera, FiAward, FiGlobe, 
-  FiBookOpen, FiHeart, FiCoffee, FiPlus, FiX
+  FiLoader, FiCheck,  FiCamera, FiAward, FiGlobe, 
+  FiBookOpen,  FiPlus, FiX
 } from 'react-icons/fi';
 
 export default function ProfilePage() {
@@ -446,7 +446,7 @@ export default function ProfilePage() {
                 {profileData.bio ? (
                   <p className="whitespace-pre-line">{profileData.bio}</p>
                 ) : (
-                  <p className="text-gray-500 italic">Keine Biografie vorhanden. Klicke auf "Bearbeiten", um Informationen über dich hinzuzufügen.</p>
+                  <p className="text-gray-500 italic">Keine Biografie vorhanden. Klicke auf {`"`}Bearbeiten{`"`}, um Informationen über dich hinzuzufügen.</p>
                 )}
               </div>
             )}

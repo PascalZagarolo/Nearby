@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 
-import { eq, lt, and } from 'drizzle-orm';
+import { eq, lt  } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 import bcrypt from 'bcryptjs';
 import { sessions, users } from '@/db/schema';
@@ -12,9 +12,7 @@ interface CreateSessionRequest {
   password: string;
 }
 
-interface ValidateSessionRequest {
-  sessionId: string;
-}
+
 
 // Helper function to add days to a date
 function addDays(date: Date, days: number): Date {

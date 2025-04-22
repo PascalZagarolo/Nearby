@@ -34,9 +34,9 @@ export default function VerificationFix() {
       }
       
       setSuccess(true);
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
-      setError(e.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      setError(e instanceof Error ? e.message : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
       setIsLoading(false);
     }

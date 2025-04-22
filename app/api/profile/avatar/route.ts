@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
 import { users, sessions } from '@/db/schema';
-import { writeFile } from 'fs/promises';
+import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
 // Helper function to ensure directory exists
 async function ensureDirectoryExists(dirPath: string) {
   try {
-    const { mkdir } = require('fs/promises');
+    
     await mkdir(dirPath, { recursive: true });
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'EEXIST') {
