@@ -102,10 +102,10 @@ export async function GET(
 // PUT - Update user profile data
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const userId = params.userId;
+    const { userId } = await params;
     
     // Get session for auth check
     const sessionId = request.cookies.get('sessionId')?.value;
