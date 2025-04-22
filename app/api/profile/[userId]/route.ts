@@ -7,10 +7,10 @@ import { sessions } from '@/db/schema';
 // GET - Retrieve user profile data
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const userId = params.userId;
+    const { userId } = await params;
     
     // Get session for auth check
     const sessionId = request.cookies.get('sessionId')?.value;
