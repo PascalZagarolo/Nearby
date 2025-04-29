@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CATEGORIES from '@/app/constants/categories';
-import { FiUpload, FiX, FiPlus, FiPackage, FiClock, FiCalendar, FiCheck, FiTrash } from 'react-icons/fi';
+import { FiUpload, FiX, FiPlus,  FiTrash } from 'react-icons/fi';
 
 // Interface for price package
 interface PricePackage {

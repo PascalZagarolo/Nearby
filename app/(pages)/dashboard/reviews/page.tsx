@@ -7,25 +7,7 @@ import ReviewsList from './ReviewsList';
 
 
 // Mock data for demonstration purposes
-const mockStats = {
-  totalReviews: 147,
-  averageRating: 4.3,
-  ratingCounts: {
-    5: 72,
-    4: 45,
-    3: 18,
-    2: 7,
-    1: 5
-  },
-  ratingPercentages: {
-    5: 49,
-    4: 31,
-    3: 12,
-    2: 5,
-    1: 3
-  },
-  responseRate: 0.87
-};
+
 
 const mockReviews = [
   {
@@ -103,7 +85,7 @@ const mockReviews = [
 ];
 
 // Calculate review statistics
-const calculateStats = (reviews: any[]) => {
+const calculateStats = (reviews : {rating: number, date: string, text: string, response?: {date: string, text: string}}[]) => {
   const totalReviews = reviews.length;
   
   if (totalReviews === 0) {
@@ -147,6 +129,7 @@ const calculateStats = (reviews: any[]) => {
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState(mockReviews);
+  console.log(setReviews)
   const [filterRating, setFilterRating] = useState<number | null>(null);
   
   const filteredReviews = filterRating 

@@ -7,8 +7,7 @@ import {
   FiLock, 
   FiCreditCard, 
   FiChevronRight, 
-  FiToggleRight, 
-  FiToggleLeft,
+ 
   FiEdit,
   FiSave,
   FiX,
@@ -22,7 +21,6 @@ import {
   FiDollarSign,
   FiCheckCircle,
   FiAlertCircle,
-  FiPercent,
   FiInfo
 } from 'react-icons/fi';
 

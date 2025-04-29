@@ -36,6 +36,7 @@ export default function ReviewsList({ reviews }: ReviewsListProps) {
       const date = new Date(dateString);
       return format(date, 'dd. MMMM yyyy', { locale: de });
     } catch (error) {
+      console.error('Error formatting date:', error);
       return dateString;
     }
   };

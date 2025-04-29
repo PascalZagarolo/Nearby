@@ -2,17 +2,17 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { 
   FiPackage, 
   FiStar, 
   FiUsers, 
   FiMessageSquare, 
   FiDollarSign, 
-  FiTrendingUp, 
+
   FiCalendar, 
   FiClock,
-  FiPieChart,
+
   FiBarChart2,
   FiArrowUp,
   FiArrowDown,
@@ -226,7 +226,7 @@ export default function DashboardPage() {
       },
       tooltip: {
         callbacks: {
-          label: function(context: any) {
+          label: function(context: { label: string; parsed: number; dataset: { data: number[] }; }) {
             const label = context.label || '';
             const value = context.parsed || 0;
             const dataset = context.dataset;
