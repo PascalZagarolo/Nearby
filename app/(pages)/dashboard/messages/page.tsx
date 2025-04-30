@@ -199,7 +199,7 @@ const mockConversationMessages = {
 export default async function MessagesPage({ 
   searchParams 
 }: { 
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const user = await getCurrentUser();
   
@@ -208,7 +208,8 @@ export default async function MessagesPage({
   }
 
   // Get the active conversation from URL params
-  const activeConversationId = typeof searchParams.conversation === 'string' ? searchParams.conversation : '';
+  const resolvedSearchParams = await searchParams;
+  const activeConversationId = typeof resolvedSearchParams.conversation === 'string' ? resolvedSearchParams.conversation : '';
   const activeConversation = activeConversationId 
     ? mockConversations.find(conversation => conversation.id === activeConversationId)
     : null;
