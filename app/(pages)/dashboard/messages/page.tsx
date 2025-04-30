@@ -199,7 +199,7 @@ const mockConversationMessages = {
 export default async function MessagesPage({ 
   searchParams 
 }: { 
-  searchParams: { conversation?: string } 
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const user = await getCurrentUser();
   
@@ -208,7 +208,7 @@ export default async function MessagesPage({
   }
 
   // Get the active conversation from URL params
-  const activeConversationId = searchParams.conversation || '';
+  const activeConversationId = typeof searchParams.conversation === 'string' ? searchParams.conversation : '';
   const activeConversation = activeConversationId 
     ? mockConversations.find(conversation => conversation.id === activeConversationId)
     : null;
@@ -237,7 +237,7 @@ export default async function MessagesPage({
             {activeConversation ? (
               <ChatInterface 
                 conversation={activeConversation} 
-                messages={activeMessages} 
+                messages={activeMessages as []} 
               />
             ) : (
               <EmptyConversation />
